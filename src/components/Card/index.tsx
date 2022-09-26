@@ -1,32 +1,61 @@
-import { Card, CardHeader, CardMeta, Divider, Grid } from 'semantic-ui-react';
+import { useDrag, useDrop } from 'react-dnd';
+import { Card as CardWrapper, CardHeader, CardMeta, Divider, Grid } from 'semantic-ui-react';
+
+import ICard from '../../interfaces/ICard';
+
+import ITEM_TYPES from '../../data/types';
+
 import styles from './styles';
 
-export interface ICard {
-    title: string;
-    index: string;
-    author: string;
-    daysNumber: number; // change to date
-    comentsNumber: number;
+type ICardProps = {
+    card: ICard;
+    changeCardPriority: (status: string, previousPriority: number, newPriority: number) => void;
 }
 
-const TaskCard = (props: ICard) => {
+const Card = (props: ICardProps) => {
+    const card = props.card;
+    const changeCardPriority = props.changeCardPriority;
+
+    const[{ isDragging }, dragRef] = useDrag({
+        type: ITEM_TYPES.CARD,
+        item: { id: card.id, priority: card.priority, status: card.status },
+        collect: monitor => ({
+            isDragging: !!monitor.isDragging()
+        }),
+    });
+
+    const[{ isOver }, dropRef] = useDrop({
+        accept: ITEM_TYPES.CARD,
+        collect: monitor => ({
+            isOver: !!monitor.isOver()
+        }),
+        drop: (item, monitor) => {
+            if(card.status === (item as any).status)
+                changeCardPriority(card.status, (item as any).priority, Number(card!.priority));
+        },
+    });
+
     return (
-        <Card style={styles.container}>
-           <Card.Content>
-            <CardHeader style={styles.title}>{props.title}</CardHeader>
-            <CardMeta style={styles.date}>#{props.index} opened {props.daysNumber} days ago</CardMeta>
-            </Card.Content> 
-            <Card.Content style={styles.dataLinks}>
-                <Grid.Column>
-                    {props.author}
-                </Grid.Column>
-                <Divider vertical>|</Divider> 
-                <Grid.Column>
-                    Comments: {props.comentsNumber}
-                </Grid.Column>
-            </Card.Content>
-        </Card>
+        <div style={styles.container} ref={dragRef}>
+        <div ref={dropRef} style={isDragging ? styles.underDraggableContainer : styles.draggableContainer}>
+                <CardWrapper>
+                <CardWrapper.Content>
+                    <CardHeader style={styles.title}>{card.title}</CardHeader>
+                    <CardMeta style={styles.date}>#{card.id} opened {card.daysNumber} days ago</CardMeta>
+                    </CardWrapper.Content> 
+                    <CardWrapper.Content style={styles.dataLinks}>
+                        <Grid.Column>
+                            {card.author}
+                        </Grid.Column>
+                        <Divider vertical>|</Divider> 
+                        <Grid.Column>
+                            Comments: {card.comentsNumber}
+                        </Grid.Column>
+                    </CardWrapper.Content>
+                </CardWrapper>
+        </div>
+        </div>
     );
 }
 
-export default TaskCard;
+export default Card;
