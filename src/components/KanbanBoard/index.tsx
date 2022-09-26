@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Segment } from 'semantic-ui-react';
 
-import Column from '../Column';
+import Column from './Column';
 
 import ICard from '../../interfaces/ICard';
 import IColumn from '../../interfaces/IColumn';

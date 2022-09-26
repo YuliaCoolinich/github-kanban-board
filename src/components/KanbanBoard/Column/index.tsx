@@ -3,9 +3,9 @@ import { Container, Segment, Header } from 'semantic-ui-react';
 
 import Card from '../Card';
 
-import IColumn from '../../interfaces/IColumn';
+import IColumn from '../../../interfaces/IColumn';
 
-import ITEM_TYPES from '../../data/types';
+import ITEM_TYPES from '../../../data/types';
 
 import styles from './styles';
 

@@ -1,9 +1,9 @@
 import { useDrag, useDrop } from 'react-dnd';
 import { Card as CardWrapper, CardHeader, CardMeta, Divider, Grid } from 'semantic-ui-react';
 
-import ICard from '../../interfaces/ICard';
+import ICard from '../../../interfaces/ICard';
 
-import ITEM_TYPES from '../../data/types';
+import ITEM_TYPES from '../../../data/types';
 
 import styles from './styles';
 
