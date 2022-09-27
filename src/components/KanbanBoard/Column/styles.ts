@@ -3,7 +3,7 @@ import COLORS from "../../constants/colors";
 const styles = {
     wrapper: {
         height: 'auto',
-        width: '100%',
+        width: 'auto',
     },
     container: {
         width: 300,

@@ -63,7 +63,8 @@ const KanbanBoard = () => {
     }
 
     return(
-            <Container style={styles.segment}> 
+            <Container style={styles.containerWrapper}> 
+            <Container style={styles.container}>
             { 
                 columns.map(column => 
                     <Column 
@@ -73,6 +74,7 @@ const KanbanBoard = () => {
                         changeCardPriority={changeCardPriority}
                     />)
             }
+            </Container>
             </Container>
     );
 }
