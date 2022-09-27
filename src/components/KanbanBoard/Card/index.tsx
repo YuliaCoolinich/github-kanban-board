@@ -1,5 +1,5 @@
 import { useDrag, useDrop } from 'react-dnd';
-import { Card as CardWrapper, CardHeader, CardMeta, Divider, Grid } from 'semantic-ui-react';
+import { Card as CardWrapper, CardHeader, CardMeta, Label, Divider, Grid, Segment as Container } from 'semantic-ui-react';
 
 import ICard from '../../../interfaces/ICard';
 
@@ -35,25 +35,25 @@ const Card = (props: ICardProps) => {
         },
     });
 
+    const dateWrapper = () => {
+        return `#${card.id} opened ${card.daysNumber} days ago`;
+    }
+
     return (
-        <div style={styles.container} ref={dragRef}>
-        <div ref={dropRef} style={isDragging ? styles.underDraggableContainer : styles.draggableContainer}>
-                <CardWrapper>
-                <CardWrapper.Content>
-                    <CardHeader style={styles.title}>{card.title}</CardHeader>
-                    <CardMeta style={styles.date}>#{card.id} opened {card.daysNumber} days ago</CardMeta>
-                    </CardWrapper.Content> 
-                    <CardWrapper.Content style={styles.dataLinks}>
-                        <Grid.Column>
-                            {card.author}
-                        </Grid.Column>
-                        <Divider vertical>|</Divider> 
-                        <Grid.Column>
-                            Comments: {card.comentsNumber}
-                        </Grid.Column>
+        <div ref={dragRef} style={styles.container}>
+            <div ref={dropRef} style={isDragging ? styles.underDraggableContainer : styles.draggableContainer}> 
+                    <CardWrapper.Content>
+                        <CardHeader style={styles.title}>{card.title}</CardHeader>
+                        <CardMeta style={styles.date}>{dateWrapper()}</CardMeta>
+                        <CardWrapper.Description style={styles.discription}>
+                            <Grid columns={3} style={styles.dataColumnsWrapper}>
+                                <Grid.Column style={styles.dataColumns}>{card.author}</Grid.Column>
+                                <Grid.Column style={styles.dataColumns}>|</Grid.Column>
+                                <Grid.Column style={styles.dataColumns}>{`Comments: ${card.comentsNumber}`}</Grid.Column>
+                            </Grid>
+                        </CardWrapper.Description>
                     </CardWrapper.Content>
-                </CardWrapper>
-        </div>
+            </div>
         </div>
     );
 }

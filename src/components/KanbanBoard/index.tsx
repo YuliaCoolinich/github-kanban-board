@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Segment } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 
 import Column from './Column';
 
@@ -63,7 +63,7 @@ const KanbanBoard = () => {
     }
 
     return(
-            <Segment style={styles.segment}> 
+            <Container style={styles.segment}> 
             { 
                 columns.map(column => 
                     <Column 
@@ -73,7 +73,7 @@ const KanbanBoard = () => {
                         changeCardPriority={changeCardPriority}
                     />)
             }
-            </Segment>
+            </Container>
     );
 }
 

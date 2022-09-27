@@ -9,6 +9,8 @@ import ITEM_TYPES from '../../../data/types';
 
 import styles from './styles';
 
+const EMPTY_COLUMN_INFO = 'Empty list';
+
 type IColumnProps = {
     column: IColumn;
     changeCardStatus: (id: number, newStatus: string)=> void;
@@ -31,13 +33,13 @@ const Column = ( props: IColumnProps  ) => {
     });
 
     return ( // TO-DO create general droppable element with passing children item
-            <div ref={dropRef}>
+            <div ref={dropRef} style={styles.wrapper}>
                 <Container style={styles.container}>
                     <Header>{status}</Header>
                     <Segment style={isOver ? styles.cardSegmentDropped : styles.cardSegment}>
                         {
                             cards.length === 0 
-                                ? <div>Empty list</div>
+                                ? <div style={styles.infoContent}>{EMPTY_COLUMN_INFO}</div>
                                 : cards.map(card => 
                                     <Card 
                                         card={card} 
@@ -47,7 +49,7 @@ const Column = ( props: IColumnProps  ) => {
                         }
                     </Segment>
                 </Container>
-            </div>
+           </div>
         )
 };
 
