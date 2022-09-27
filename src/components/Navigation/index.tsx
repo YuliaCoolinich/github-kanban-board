@@ -3,6 +3,7 @@ import { Container, Form } from 'semantic-ui-react';
 import Input from "../base/Input";
 import Button from "../base/Button";
 import Breadcrumb from '../base/Breadcrump';
+import Rating from '../base/Rating';
 
 import ISection from '../../interfaces/ISection';
 
@@ -24,6 +25,8 @@ const Navigation = () => {
     }, 
   ];
 
+  const countStars = 10343434;
+
   return( 
     <Container style={styles.container}>
       <Form onSubmit={onSubmit} style={styles.formContainer} >
@@ -38,6 +41,7 @@ const Navigation = () => {
       </Form>
       <Container style={styles.breadCrumpContainer}>
         <Breadcrumb sections={sections} />
+        <Rating count={countStars} />
       </Container>
       </Container>
   )

@@ -14,7 +14,7 @@ const styles = {
     breadCrumpContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'start',
-    }
+        justifyContent: 'flex-start',
+    },
 }
 export default styles;
