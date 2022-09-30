@@ -12,6 +12,7 @@ const styles = {
         width: '100%'
     },
     breadCrumpContainer: {
+        marginTop: 10,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
