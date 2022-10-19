@@ -1,14 +1,15 @@
 import { useDrag, useDrop } from 'react-dnd';
-import { Card as CardWrapper, CardHeader, CardMeta, Label, Divider, Grid, Segment as Container } from 'semantic-ui-react';
+import moment from 'moment';
+import { Card as CardWrapper, CardHeader, CardMeta, Grid } from 'semantic-ui-react';
 
-import ICard from '../../../interfaces/ICard';
+import IIssue from '../../../interfaces/IIssue';
 
 import ITEM_TYPES from '../../../data/types';
 
 import styles from './styles';
 
 type ICardProps = {
-    card: ICard;
+    card: IIssue;
     changeCardPriority: (status: string, previousPriority: number, newPriority: number) => void;
 }
 
@@ -18,7 +19,7 @@ const Card = (props: ICardProps) => {
 
     const[{ isDragging }, dragRef] = useDrag({
         type: ITEM_TYPES.CARD,
-        item: { id: card.id, priority: card.priority, status: card.status },
+        item: { id: card.id, priority: card.priority, status: card.state },
         collect: monitor => ({
             isDragging: !!monitor.isDragging()
         }),
@@ -30,26 +31,32 @@ const Card = (props: ICardProps) => {
             isOver: !!monitor.isOver()
         }),
         drop: (item, monitor) => {
-            if(card.status === (item as any).status)
-                changeCardPriority(card.status, (item as any).priority, Number(card!.priority));
+            if(card.state === (item as any).status)
+                changeCardPriority(card.state, (item as any).priority, Number(card!.priority));
         },
     });
 
     const dateWrapper = () => {
-        return `#${card.id} opened ${card.daysNumber} days ago`;
+        return `#${card.number} opened ${moment([card.created_at]).toNow()} ago`;
     }
 
     return (
         <div ref={dragRef} style={styles.container}>
             <div ref={dropRef} style={isDragging ? styles.underDraggableContainer : styles.draggableContainer}> 
                     <CardWrapper.Content>
-                        <CardHeader style={styles.title}>{card.title}</CardHeader>
+                        <CardHeader style={styles.title}>
+                            <a href={card.html_url}>
+                                {card.title}
+                            </a>
+                        </CardHeader>
                         <CardMeta style={styles.date}>{dateWrapper()}</CardMeta>
                         <CardWrapper.Description style={styles.discription}>
                             <Grid columns={3} style={styles.dataColumnsWrapper}>
-                                <Grid.Column style={styles.dataColumns}>{card.author}</Grid.Column>
+                                <Grid.Column style={styles.dataColumns}>
+                                    <a href={card.user.html_url}>{card.user.login}</a>
+                                </Grid.Column>
                                 <Grid.Column style={styles.dataColumns}>|</Grid.Column>
-                                <Grid.Column style={styles.dataColumns}>{`Comments: ${card.comentsNumber}`}</Grid.Column>
+                                <Grid.Column style={styles.dataColumns}>{`Comments: ${card.comments}`}</Grid.Column>
                             </Grid>
                         </CardWrapper.Description>
                     </CardWrapper.Content>

@@ -7,6 +7,7 @@ const styles = {
         background: COLORS.ghostWhite,
         padding: 5,
         margin: 10,
+        overflow: 'hidden',
     },
     draggableContainer: {
         opacity: 1,

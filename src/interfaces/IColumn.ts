@@ -1,9 +1,9 @@
-import ICard from "./ICard";
+import IIssue from "./IIssue";
 import IStatus from './IStatus';
 
 interface IColumn {
     status: IStatus;
-    cards: ICard[];
+    cards: IIssue[];
 }
 
 export default IColumn;
