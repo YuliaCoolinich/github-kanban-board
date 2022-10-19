@@ -9,32 +9,43 @@ import Rating from '../base/Rating';
 import ISection from '../../interfaces/ISection';
 import * as navigationServices from './services';
 
-import { DOMAIN } from '../../data/urls';
-
 import styles from './styles';
 
 const INPUT_PLACEHOLDER = 'Enter repo URL';
 const BUTTON_CONTENT = 'Load issues';
-const MOCKED_URL = `${DOMAIN}facebook/react`;
-const MOCKED_RATING = 194000;
 
-const Navigation = () => {
-  const [url, setUrl] = useState<string>(MOCKED_URL);
+interface INavigation {
+  url: string,
+  setUrl: (url: string) => void,
+  loadIssues: (url: string) => any,
+}
+
+const Navigation = (props: INavigation) => {
+  //const [url, setUrl] = useState<string>(MOCKED_URL);
+  const { url, setUrl, loadIssues } = props;
+
   const [sections, setSections] = useState<ISection[]>([]);
+  const [starGazersCount, setStarGazersCount] = useState(0);
   const [error, setError] = useState<Error|null>();
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     try {
       const sections = navigationServices.parseUrl(url) as ISection[];
       setSections(sections);
+      console.log(sections);
       if (error) {
         setError(null);
       }
       // TO-DO load items here
+      const stars: number = await navigationServices.getStarGazersCount(url);
+      setStarGazersCount(stars);
+
+      const issues = await loadIssues(url);
+      //return cards;
 
     } catch (e: unknown) {
-      const err = e as Error;
-      setError(err);
+        const err = e as Error;
+        setError(err);
     }
   }
 
@@ -53,7 +64,7 @@ const Navigation = () => {
       </Form>
       <Container style={styles.breadCrumpContainer}>
         <Breadcrumb sections={sections} />
-        <Rating count={MOCKED_RATING} />
+        <Rating count={starGazersCount} />
       </Container>
     </Container>
   )
