@@ -8,6 +8,7 @@ import IColumn from '../../../interfaces/IColumn';
 import ITEM_TYPES from '../../../data/types';
 
 import styles from './styles';
+import IIssue from '../../../interfaces/IIssue';
 
 const EMPTY_COLUMN_INFO = 'Empty list';
 
@@ -18,8 +19,8 @@ type IColumnProps = {
 }
 
 const Column = ( props: IColumnProps  ) => {
-    const status = props.column.status.title;
-    const cards = props.column.cards;
+    const status: string = props.column.status.title;
+    const cards: IIssue[] = props.column.cards;
 
     const[{ isOver }, dropRef] = useDrop({
         accept: ITEM_TYPES.CARD,
