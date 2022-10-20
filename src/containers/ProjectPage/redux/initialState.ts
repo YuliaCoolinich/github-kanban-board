@@ -1,7 +1,7 @@
 import IKanbanBoardPageState from "./interfaces/IKanbanBoardPageState";
 
 const initalState: IKanbanBoardPageState = {
-    issues: [],
+    columns: [],
     url: '',
     errorMessage: '',
 }

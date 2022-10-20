@@ -14,13 +14,14 @@ const EMPTY_COLUMN_INFO = 'Empty list';
 
 type IColumnProps = {
     column: IColumn;
-    changeCardStatus: (id: number, newStatus: string)=> void;
-    changeCardPriority: (status: string, previousPriority: number, newPriority: number) => void;
+    changeIssueStatus: (issueId: number, previousStatus: string, newStatus: string) => void;
+    changeCardPriority?: (status: string, previousPriority: number, newPriority: number) => void;
 }
 
 const Column = ( props: IColumnProps  ) => {
     const status: string = props.column.status.title;
     const cards: IIssue[] = props.column.cards;
+    const { changeIssueStatus } = props;
 
     const[{ isOver }, dropRef] = useDrop({
         accept: ITEM_TYPES.CARD,
@@ -28,8 +29,12 @@ const Column = ( props: IColumnProps  ) => {
             isOver: !!monitor.isOver()
         }),
         drop: (item, monitor) => {
-            if(status !== (item as any).status)
-                props.changeCardStatus((item as any).id, status)
+            console.log('item');
+            console.log(item);
+            if(status !== (item as any).status) {
+                console.log(`changeCardStatus(${(item as any).id}, ${(item as any).status}, ${status})`);
+                changeIssueStatus((item as any).id, (item as any).status, status);
+            }
         },
     });
 
@@ -44,7 +49,7 @@ const Column = ( props: IColumnProps  ) => {
                                 : cards.map(card => 
                                     <Card 
                                         card={card} 
-                                        changeCardPriority={props.changeCardPriority}
+                                        //changeCardPriority={props.changeCardPriority}
                                         key={card.id} 
                                     />)
                         }

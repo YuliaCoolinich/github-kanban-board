@@ -15,3 +15,12 @@ export const setUrl = (url: string): IKanbanBoardPageActionTypes => ({
         url
     }
 });
+
+export const changeIssueStatus = (issueId: number,  previousStatus: string, newStatus: string): IKanbanBoardPageActionTypes => ({
+    type: actionTypes.STATUS_ISSUE_CHANGE,
+    payload: {
+        issueId, 
+        previousStatus,
+        newStatus
+    }
+});

@@ -1,7 +1,7 @@
-import IIssue from "../../../../interfaces/IIssue";
+import IColumn from "../../../../interfaces/IColumn"
 
 export default interface IKanbanBoardPageState {
-    issues: IIssue[];
+    columns: IColumn[];
     url: string;
     errorMessage: string;
 };

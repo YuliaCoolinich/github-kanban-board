@@ -28,6 +28,9 @@ const ProjectPage = () => {
         //setIssues(issues);
         dispatch({ type: actionTypes.ISSUES_SET, payload: { issues }});
     }
+    const changeIssueStatus = (issueId: number, previousStatus: string, newStatus: string) => {
+        dispatch({ type: actionTypes.STATUS_ISSUE_CHANGE, payload: { issueId, previousStatus, newStatus }});
+    }
 
     return (
         <>
@@ -36,7 +39,7 @@ const ProjectPage = () => {
                 setUrl={handleInputUrl}
                 loadIssues={handleLoadIssues}
             />
-            <KanbanBoard issues={state.issues} />
+            <KanbanBoard columns={state.columns} changeIssueStatus={changeIssueStatus} />
         </>
     )
 };

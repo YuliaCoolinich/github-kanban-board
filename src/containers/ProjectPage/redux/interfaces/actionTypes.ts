@@ -15,6 +15,15 @@ export interface setUrl {
     }
 }
 
-type IKanbanBoardPageActionTypes = setIssues | setUrl;
+export interface changeIssueStatus {
+    type: typeof actionTypes.STATUS_ISSUE_CHANGE,
+    payload: {
+        issueId: number,
+        previousStatus: string,
+        newStatus: string,
+    }
+}
+
+type IKanbanBoardPageActionTypes = setIssues | setUrl | changeIssueStatus;
 
 export default IKanbanBoardPageActionTypes;
