@@ -1,14 +1,14 @@
 import './App.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from "react-dnd-html5-backend";
-import ProjectPage from './containers/ProjectPage';
+import KanbanBoardPage from './containers/KanbanBoardPage';
 
 function App() {
 
   return (
     <DndProvider backend={ HTML5Backend }> 
     <div className="App">
-        <ProjectPage />
+        <KanbanBoardPage />
     </div>
     </DndProvider>
   );

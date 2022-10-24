@@ -12,7 +12,7 @@ import * as pageServices from './services';
 
 // https://github.com/facebook/react
 
-const ProjectPage = () => {
+const KanbanBoardPage = () => {
     const [state, dispatch] = useReducer(kanbanBoardPageReducer, initialState);
 
     const handleInputUrl = (url: string) => {
@@ -47,4 +47,4 @@ const ProjectPage = () => {
     )
 };
 
-export default ProjectPage;
+export default KanbanBoardPage;
