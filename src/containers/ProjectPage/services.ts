@@ -49,8 +49,15 @@ export const filterIssues =  (issues: IIssue[]): IColumn[] => {
         cards: filterIssuesByStatus(issues, status)
     }));
 
-    columns.forEach(column => column.cards.forEach(card => card.status = column.status.title));
+    columns.forEach(column => {
+        column.cards.forEach(card => card.status = column.status.title);
+        updateCardsPriority(column);
+    });
     return columns;
+}
+
+const updateCardsPriority = (column: IColumn): void => {
+    column.cards.forEach((card, index) => card.priority = index);
 }
 
 const filterIssuesByStatus = (issues: IIssue[], status: IStatus): IIssue[] => { 
@@ -77,6 +84,27 @@ export const changeIssueStatus = (columns: IColumn[], issueId: number, previousS
     
     columnFrom.cards.splice(issueIndex, 1);
     columnTo.cards.push(changedIssue);
-    return columns;
 
+    updateCardsPriority(columnFrom);
+    updateCardsPriority(columnTo);
+    return columns;
+}
+
+export const changeIssueOrder = (columns: IColumn[], status: string, previousIndex: number, newIndex: number): IColumn[] => {
+    const issuesChangedOrder: IIssue[]  = columns.find(column => column.status.title === status)?.cards as IIssue[];
+    if (!issuesChangedOrder.length) {
+        console.log('there is error'); // TO-DO throw error here
+        return columns;
+    }
+    const movedCard: IIssue = issuesChangedOrder[previousIndex];
+
+    issuesChangedOrder.splice(previousIndex, 1);
+    issuesChangedOrder.splice(newIndex, 0, movedCard);
+    issuesChangedOrder.forEach((card, index) => card.priority = index);
+
+    const updatedColumns: IColumn[] = columns.map(column => {
+        if (column.status.title === status) column.cards = issuesChangedOrder;
+        return column;
+    });
+    return updatedColumns;
 }

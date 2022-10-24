@@ -10,13 +10,9 @@ import initialState from "./redux/initialState";
 
 import * as pageServices from './services';
 
-// const MOCKED_URL = `${DOMAIN}facebook/react`;
 // https://github.com/facebook/react
 
 const ProjectPage = () => {
-    // const [url, setUrl] = useState<string>("");
-    // const [issues, setIssues] = useState<IIssue[]>([]);
-
     const [state, dispatch] = useReducer(kanbanBoardPageReducer, initialState);
 
     const handleInputUrl = (url: string) => {
@@ -25,11 +21,14 @@ const ProjectPage = () => {
 
     const handleLoadIssues = async () => {
         const issues: IIssue[] = await pageServices.loadIssues(state.url);
-        //setIssues(issues);
         dispatch({ type: actionTypes.ISSUES_SET, payload: { issues }});
     }
     const changeIssueStatus = (issueId: number, previousStatus: string, newStatus: string) => {
         dispatch({ type: actionTypes.STATUS_ISSUE_CHANGE, payload: { issueId, previousStatus, newStatus }});
+    }
+
+    const changeIssuesOrder = (status: string, previousIndex: number, newIndex: number) => {
+        dispatch({ type: actionTypes.ORDER_ISSUES_CHANGE, payload: { status, previousIndex, newIndex }});
     }
 
     return (
@@ -39,7 +38,11 @@ const ProjectPage = () => {
                 setUrl={handleInputUrl}
                 loadIssues={handleLoadIssues}
             />
-            <KanbanBoard columns={state.columns} changeIssueStatus={changeIssueStatus} />
+            <KanbanBoard 
+                columns={state.columns} 
+                changeIssueStatus={changeIssueStatus}
+                changeIssuesOrder={changeIssuesOrder}
+            />
         </>
     )
 };

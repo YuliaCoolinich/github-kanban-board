@@ -3,23 +3,29 @@ import moment from 'moment';
 import { Card as CardWrapper, CardHeader, CardMeta, Grid } from 'semantic-ui-react';
 
 import IIssue from '../../../interfaces/IIssue';
+import IDraggableItem from '../../../interfaces/IDraggableItem';
 
 import ITEM_TYPES from '../../../data/types';
 
 import styles from './styles';
 
 type ICardProps = {
-    card: IIssue;
-    changeCardPriority: (status: string, previousPriority: number, newPriority: number) => void;
+    issue: IIssue;
+    order: number;
+    changeIssuesOrder: (status: string, previousIndex: number, newIndex: number) => void;
 }
 
 const Card = (props: ICardProps) => {
-    const card = props.card;
-    const changeCardPriority = props.changeCardPriority;
+    const { issue, order, changeIssuesOrder } = props;
+    const draggableItem: IDraggableItem = {
+        id: issue.id, 
+        priority: order, 
+        status: issue.status as string,
+    }
 
     const[{ isDragging }, dragRef] = useDrag({
         type: ITEM_TYPES.CARD,
-        item: { id: card.id, priority: card.priority, status: card.state },
+        item: draggableItem,
         collect: monitor => ({
             isDragging: !!monitor.isDragging()
         }),
@@ -30,14 +36,16 @@ const Card = (props: ICardProps) => {
         collect: monitor => ({
             isOver: !!monitor.isOver()
         }),
-        drop: (item, monitor) => {
-            if(card.state === (item as any).status)
-                changeCardPriority(card.state, (item as any).priority, Number(card!.priority));
+        drop: (item: any, monitor) => {
+            const droppedItem = item as IDraggableItem;
+            if (issue.status === item.status) {
+                changeIssuesOrder(String(issue.status), droppedItem.priority, Number(issue!.priority));
+            }
         },
     });
 
     const dateWrapper = () => {
-        return `#${card.number} opened ${moment([card.created_at]).toNow()} ago`;
+        return `#${issue.number} opened ${moment([issue.created_at]).toNow()} ago`;
     }
 
     return (
@@ -45,18 +53,18 @@ const Card = (props: ICardProps) => {
             <div ref={dropRef} style={isDragging ? styles.underDraggableContainer : styles.draggableContainer}> 
                     <CardWrapper.Content>
                         <CardHeader style={styles.title}>
-                            <a href={card.html_url}>
-                                {card.title}
+                            <a href={issue.html_url}>
+                                {issue.title}
                             </a>
                         </CardHeader>
                         <CardMeta style={styles.date}>{dateWrapper()}</CardMeta>
                         <CardWrapper.Description style={styles.discription}>
                             <Grid columns={3} style={styles.dataColumnsWrapper}>
                                 <Grid.Column style={styles.dataColumns}>
-                                    <a href={card.user.html_url}>{card.user.login}</a>
+                                    <a href={issue.user.html_url}>{issue.user.login}</a>
                                 </Grid.Column>
                                 <Grid.Column style={styles.dataColumns}>|</Grid.Column>
-                                <Grid.Column style={styles.dataColumns}>{`Comments: ${card.comments}`}</Grid.Column>
+                                <Grid.Column style={styles.dataColumns}>{`Comments: ${issue.comments}`}</Grid.Column>
                             </Grid>
                         </CardWrapper.Description>
                     </CardWrapper.Content>

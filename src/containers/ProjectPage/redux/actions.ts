@@ -24,3 +24,12 @@ export const changeIssueStatus = (issueId: number,  previousStatus: string, newS
         newStatus
     }
 });
+
+export const changeIssuesOrder = (status: string, previousIndex: number, newIndex: number): IKanbanBoardPageActionTypes => ({
+    type: actionTypes.ORDER_ISSUES_CHANGE,
+    payload: {
+        status,
+        previousIndex,
+        newIndex
+    }
+});

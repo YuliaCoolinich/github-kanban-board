@@ -24,6 +24,15 @@ export interface changeIssueStatus {
     }
 }
 
-type IKanbanBoardPageActionTypes = setIssues | setUrl | changeIssueStatus;
+export interface changeIssuesOrder {
+    type: typeof actionTypes.ORDER_ISSUES_CHANGE,
+    payload: {
+        status: string, 
+        previousIndex: number,
+        newIndex: number,
+    }
+}
+
+type IKanbanBoardPageActionTypes = setIssues | setUrl | changeIssueStatus | changeIssuesOrder;
 
 export default IKanbanBoardPageActionTypes;

@@ -26,6 +26,11 @@ const kanbanBoardPageReducer = (state: IKanbanBoardPageStore = initalState, acti
                 columns: issuesService.changeIssueStatus(state.columns, action.payload.issueId, action.payload.previousStatus, action.payload.newStatus),
                 errorMessage: '',
             }
+        case actionTypes.ORDER_ISSUES_CHANGE: 
+            return {
+                ...state,
+                columns: issuesService.changeIssueOrder(state.columns, action.payload.status, action.payload.previousIndex, action.payload.newIndex),
+            }
         default:
             return state;
     }
