@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import kanbanBoardPageReducer from "../containers/ProjectPage/redux/reducer";
+import kanbanBoardPageReducer from "../containers/KanbanBoardPage/redux/reducer";
 
 const rootReduser = combineReducers({
     kanbanBoardPageReducer,
