@@ -13,7 +13,6 @@ export async function callApi(args: IRequestArgument): Promise<Response> {
 }
 
 const createRequest = (args: IRequestArgument): Request => {
-    console.log(getURL(args));
     return new Request(getURL(args), {
         method: args.type,
         headers: {

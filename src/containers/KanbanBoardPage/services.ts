@@ -8,11 +8,9 @@ import IColumn from '../../interfaces/IColumn';
 
 export const loadIssues = async (url: string): Promise<IIssue[]> => {
     const path: string = url.replace(DOMAIN, "");
-
-    // TO-DO load all issues from all pages
-    const recivedIssues: IIssue[] = await issuesService.getIssues(path);
+    
+    const recivedIssues: IIssue[] = await issuesService.getAllIssues(path);
     const issues: IIssue[] = mapIssues(recivedIssues);
-    console.log(issues);
     return issues;
 };
 
