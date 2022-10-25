@@ -36,7 +36,6 @@ const Navigation = (props: INavigation) => {
       if (error) {
         setError(null);
       }
-      // TO-DO load items here
       const stars: number = await navigationServices.getStarGazersCount(url);
       setStarGazersCount(stars);
 

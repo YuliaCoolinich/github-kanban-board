@@ -5,18 +5,9 @@ import { ERROR_VALIDATION_TYPES } from '../Navigation/errors/errorTypes';
 import * as issuesService from '../../api/services/issuesService';
 import * as repositoryService from '../../api/services/repositoryService';
 
-export const loadIssues = async (url: string) => {
-    const path: string = url.replace(DOMAIN, "");
-    //console.log(path);
-    const issues = await issuesService.getIssues(path);
-    //console.log(cards);
-    return issues;
-};
-
 export const getStarGazersCount = async (url: string) => {
     const path: string = url.replace(DOMAIN, "");
     const starGazersCount: number = await repositoryService.getStarGazersCount(path);
-    // console.log(starGazersCount);
     return starGazersCount;
   };
 
@@ -28,7 +19,6 @@ export const parseUrl = (url: string): ISection[] | undefined => {
             const section: ISection = {
                 key: segment,
                 content: uppercasedFirstLetter(segment),
-                //link: index !== path.length - 1,
                 active: index === path.length - 1,
                 href: getSegmentUrl(path, index),
             };
