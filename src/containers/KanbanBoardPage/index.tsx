@@ -1,36 +1,31 @@
-import { useReducer } from 'react';
 import KanbanBoard from '../../components/KanbanBoard';
 import Navigation from '../../components/Navigation';
 
-import IIssue from '../../interfaces/IIssue';
-import kanbanBoardPageReducer from './redux/reducer';
-import actionTypes from './redux/actionTypesNames';
-
-import initialState from "./redux/initialState";
-
-import * as pageServices from './services';
+import useActions from './hooks/useActions';
+import useTypedSelector from './hooks/useTypedSelector';
 
 // https://github.com/facebook/react
 
 const KanbanBoardPage = () => {
-    const [state, dispatch] = useReducer(kanbanBoardPageReducer, initialState);
+    const actions = useActions();
+    const state = useTypedSelector(state => state.kanbanBoardPageReducer);
 
     const handleInputUrl = (url: string) => {
-        dispatch({ type: actionTypes.URL_SET, payload: { url }});
+        actions.setUrl(url);
     }
 
     const handleLoadIssues = async () => {
-        const issues: IIssue[] = await pageServices.loadIssues(state.url);
-        dispatch({ type: actionTypes.ISSUES_SET, payload: { issues }});
+        actions.getIssues(state.url);
     }
     const changeIssueStatus = (issueId: number, previousStatus: string, newStatus: string) => {
-        dispatch({ type: actionTypes.STATUS_ISSUE_CHANGE, payload: { issueId, previousStatus, newStatus }});
+        actions.changeIssueStatus(issueId, previousStatus, newStatus);
     }
 
     const changeIssuesOrder = (status: string, previousIndex: number, newIndex: number) => {
-        dispatch({ type: actionTypes.ORDER_ISSUES_CHANGE, payload: { status, previousIndex, newIndex }});
+        actions.changeIssuesOrder(status, previousIndex, newIndex);
     }
 
+    // TO-DO add error message block
     return (
         <>
             <Navigation 
