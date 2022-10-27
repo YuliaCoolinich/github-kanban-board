@@ -1,13 +1,29 @@
 import actionTypes from './actionTypesNames';
 import IKanbanBoardPageActionTypes from './interfaces/actionTypes';
-import IIssue from '../../../interfaces/IIssue';
+import IColumn from '../../../interfaces/IColumn';
 
-export const setIssues = (issues: IIssue[]): IKanbanBoardPageActionTypes => ({
-    type: actionTypes.ISSUES_SET,
+export const getIssues = (url: string): IKanbanBoardPageActionTypes => ({
+    type: actionTypes.ISSUES_GET_REQUEST,
     payload: {
-        issues
+        url
     }
 });
+
+export const getIssuesSuccess = (columns: IColumn[]): IKanbanBoardPageActionTypes => ({
+    type: actionTypes.ISSUES_GET_SUCCESS,
+    payload: {
+        columns
+    }
+});
+
+export const getIssuesFail = (message: string): IKanbanBoardPageActionTypes => ({
+    type: actionTypes.ISSUES_GET_ERROR,
+    payload: {
+        message
+    }
+})
+
+///////////////////////////////////////////////////////////////////////////////////////
 
 export const setUrl = (url: string): IKanbanBoardPageActionTypes => ({
     type: actionTypes.URL_SET,
@@ -15,6 +31,8 @@ export const setUrl = (url: string): IKanbanBoardPageActionTypes => ({
         url
     }
 });
+
+///////////////////////////////////////////////////////////////////////////////////////
 
 export const changeIssueStatus = (issueId: number,  previousStatus: string, newStatus: string): IKanbanBoardPageActionTypes => ({
     type: actionTypes.STATUS_ISSUE_CHANGE,
