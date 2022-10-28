@@ -49,7 +49,7 @@ const Navigation = (props: INavigation) => {
 
   return(
     <Container style={styles.container}>
-      <Form error  >
+      <Form error >
         <Form.Group inline style={styles.formContainer}>
           <Form.Field width={14}>
             <Input placeholder={INPUT_PLACEHOLDER} value={url} setValue={setUrl} isDisabled={isLoading} /> 

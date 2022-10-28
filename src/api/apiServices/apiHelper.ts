@@ -1,12 +1,14 @@
 import * as queryString from "query-string";
 import IRequestArgument from "./interfaces/IRequestArgument";
 
+import ServiceError from "../../containers/KanbanBoardPage/errors/ServiceError";
+
 export async function callApi(args: IRequestArgument): Promise<Response> {
     const result: Response = await fetch(createRequest(args));
 
     if( !result.ok) {
         const resultJSON = await result.json();
-        throw new Error(resultJSON.error.message);
+        throw new ServiceError(resultJSON.error.message);
     }
 
     return result;

@@ -8,6 +8,9 @@ import * as pageServices from '../services/issueServices';
 import * as issuesService from '../services/issueServices';
 import * as storageService from '../services/storageSevices';
 
+import { ERROR_API_SERVICE_TYPES as ERROR_TYPES } from '../errors/errorTypes';
+import ServiceError from '../errors/ServiceError';
+
 function* getIssuesSaga(action: getIssues) {
     try {
         const { url } = action.payload;
@@ -29,8 +32,10 @@ function* getIssuesSaga(action: getIssues) {
         storageService.save(url, columns);
 
     } catch (error) {
-        if (error instanceof Error) {
+        if (error instanceof ServiceError) {
             yield put(actions.getIssuesFail(error.message));
+        } else {
+            yield put(actions.getIssuesFail(ERROR_TYPES.INCORRECT_REQUEST));
         }
     } finally {
         yield put(actions.setIsLoading(false));
