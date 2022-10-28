@@ -1,12 +1,12 @@
 const styles = {
     containerWrapper: {
-        margin: 20,
+        margin: 10,
     },
     container: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        maxHeight: 700,
+        maxHeight: '80vh',
         minHeight: 500,
         width: '100%',
     },

@@ -1,4 +1,4 @@
-import { Container, Dimmer, Loader, Segment } from 'semantic-ui-react';
+import { Container, Loader, Segment } from 'semantic-ui-react';
 
 import Column from './Column';
 import IColumn from '../../interfaces/IColumn';
