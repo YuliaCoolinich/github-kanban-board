@@ -51,10 +51,10 @@ const Navigation = (props: INavigation) => {
     <Container style={styles.container}>
       <Form error  >
         <Form.Group inline style={styles.formContainer}>
-          <Form.Field width={12}>
+          <Form.Field width={14}>
             <Input placeholder={INPUT_PLACEHOLDER} value={url} setValue={setUrl} isDisabled={isLoading} /> 
           </Form.Field>
-          <Form.Field width={4}>
+          <Form.Field width={2}>
             <Button content={BUTTON_CONTENT} onClick={onSubmit} isDisabled={isLoading} />
           </Form.Field>
         </Form.Group>
