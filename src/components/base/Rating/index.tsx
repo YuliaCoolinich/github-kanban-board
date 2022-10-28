@@ -1,13 +1,22 @@
-import { Rating as RatingSemantic, Container } from 'semantic-ui-react';
+import { Rating as RatingSemantic } from 'semantic-ui-react';
 
 type IRating = {
     count: number;
 }
 const Rating = (props: IRating) => {
+    const { count } = props;
+
     return (
         <>
-            <RatingSemantic icon='star' size='large' />
-            { `${props.count} stars` }
+            {
+                count
+                ?
+                    <>
+                        <RatingSemantic icon='star' size='large' />
+                        {`${count} stars`}
+                    </>
+                : null
+            }
         </>
         
         
