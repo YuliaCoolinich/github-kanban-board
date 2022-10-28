@@ -1,15 +1,15 @@
-import { DOMAIN } from '../../data/urls';
-import * as issuesService from '../../api/services/issuesService';
-import IIssue from '../../interfaces/IIssue';
+import { DOMAIN } from '../../../data/urls';
+import * as issuesService from '../../../api/services/issuesService';
+import IIssue from '../../../interfaces/IIssue';
 
-import CARD_STATUSES, { STATUS, STATUS_API } from '../../data/statuses';
-import IStatus from '../../interfaces/IStatus';
-import IColumn from '../../interfaces/IColumn';
+import CARD_STATUSES, { STATUS, STATUS_API } from '../../../data/statuses';
+import IStatus from '../../../interfaces/IStatus';
+import IColumn from '../../../interfaces/IColumn';
 
 export const loadIssues = async (url: string): Promise<IIssue[]> => {
     const path: string = url.replace(DOMAIN, "");
     
-    const recivedIssues: IIssue[] = await issuesService.getAllIssues(path);
+    const recivedIssues: IIssue[] = await issuesService.getNewIssues(path);
     const issues: IIssue[] = mapIssues(recivedIssues);
     return issues;
 };

@@ -3,17 +3,23 @@ import IKanbanBoardPageActionTypes from './interfaces/actionTypes';
 import actionTypes from './actionTypesNames';
 
 import initalState from "./initialState";
-import * as issuesService from '../services';
+import * as issuesService from '../services/issueServices';
 
 const kanbanBoardPageReducer = (state: IKanbanBoardPageStore = initalState, action: IKanbanBoardPageActionTypes): IKanbanBoardPageStore => {
     console.log(action.type);
     switch (action.type) {
-        case actionTypes.ISSUES_SET:
+        case actionTypes.ISSUES_GET_SUCCESS:
             return {
                 ...state,
                 errorMessage: '',
-                columns: issuesService.filterIssues(action.payload.issues)
+                columns: action.payload.columns
             };
+        case actionTypes.ISSUES_GET_ERROR:
+            return {
+                ...state,
+                columns: [],
+                errorMessage: action.payload.message
+            }
         case actionTypes.URL_SET: 
             return {
                 ...state,

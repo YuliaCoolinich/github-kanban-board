@@ -1,12 +1,30 @@
 import IIssue from '../../../../interfaces/IIssue';
+import IColumn from '../../../../interfaces/IColumn';
 import actionTypes from '../actionTypesNames';
 
-export interface setIssues {
-    type: typeof actionTypes.ISSUES_SET,
+export interface getIssues {
+    type: typeof actionTypes.ISSUES_GET_REQUEST,
     payload: {
-        issues: IIssue[],
+        url: string,
     }
 }
+
+
+export interface getIssuesSuccess {
+    type: typeof actionTypes.ISSUES_GET_SUCCESS,
+    payload: {
+        columns: IColumn[],
+    }
+}
+
+export interface getIssuesFail {
+    type: typeof actionTypes.ISSUES_GET_ERROR,
+    payload: {
+        message: string,
+    }
+}
+
+///////////////////////////////////////////////////////
 
 export interface setUrl {
     type: typeof actionTypes.URL_SET,
@@ -14,6 +32,8 @@ export interface setUrl {
         url: string,
     }
 }
+
+///////////////////////////////////////////////////////
 
 export interface changeIssueStatus {
     type: typeof actionTypes.STATUS_ISSUE_CHANGE,
@@ -33,6 +53,6 @@ export interface changeIssuesOrder {
     }
 }
 
-type IKanbanBoardPageActionTypes = setIssues | setUrl | changeIssueStatus | changeIssuesOrder;
+type IKanbanBoardPageActionTypes = getIssues | getIssuesSuccess | getIssuesFail | setUrl | changeIssueStatus | changeIssuesOrder;
 
 export default IKanbanBoardPageActionTypes;

@@ -2,7 +2,6 @@ import ISection from '../../interfaces/ISection';
 import { DOMAIN } from '../../data/urls';
 import ValidationError from './errors/ValidationError';
 import { ERROR_VALIDATION_TYPES } from '../Navigation/errors/errorTypes';
-import * as issuesService from '../../api/services/issuesService';
 import * as repositoryService from '../../api/services/repositoryService';
 
 export const getStarGazersCount = async (url: string) => {
