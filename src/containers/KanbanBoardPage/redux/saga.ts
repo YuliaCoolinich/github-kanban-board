@@ -12,6 +12,8 @@ function* getIssuesSaga(action: getIssues) {
     try {
         const { url } = action.payload;
 
+        yield put(actions.setIsLoading(true));
+
         const issues: IIssue[] = yield call(pageServices.loadIssues, url);
         let columns: IColumn[] = issuesService.filterIssues(issues);
         if (storageService.isSaved(url)) {
@@ -30,6 +32,8 @@ function* getIssuesSaga(action: getIssues) {
         if (error instanceof Error) {
             yield put(actions.getIssuesFail(error.message));
         }
+    } finally {
+        yield put(actions.setIsLoading(false));
     }
 }
 

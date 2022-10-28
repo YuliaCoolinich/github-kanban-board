@@ -5,19 +5,23 @@ import styles from './styles';
 type IInputProps = {
     placeholder: string,
     value: string,
+    isDisabled: boolean,
     setValue: (value: string) => void;
 }
 const Input = (props: IInputProps) => {
+    const {placeholder, value, isDisabled, setValue } = props;
+
     const handleChangeInput = (e: any) => {
         const newValue = e.target.value;
-        if (newValue !== props.value) props.setValue(newValue); 
+        if (newValue !== value) setValue(newValue); 
     }
     return (
         <SemanticInput
             size='big'
-            placeholder={props.placeholder}
+            placeholder={placeholder}
             style={styles.full}
-            value={props.value}
+            value={value}
+            disabled={isDisabled}
             onChange={handleChangeInput}
         />
     )

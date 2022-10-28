@@ -34,11 +34,13 @@ const KanbanBoardPage = () => {
         <>
             <Navigation 
                 url={state.url}
+                isLoading={state.isLoading}
                 setUrl={handleInputUrl}
                 loadIssues={handleLoadIssues}
             />
             <KanbanBoard 
-                columns={state.columns} 
+                columns={state.columns}
+                isLoading={state.isLoading}
                 changeIssueStatus={changeIssueStatus}
                 changeIssuesOrder={changeIssuesOrder}
             />

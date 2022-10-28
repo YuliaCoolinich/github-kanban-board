@@ -9,6 +9,10 @@ const styles = {
         maxHeight: 700,
         minHeight: 500,
         width: '100%',
+    },
+    segment: {
+        width: '100%',
+        border: 'none',
     }
 }
 

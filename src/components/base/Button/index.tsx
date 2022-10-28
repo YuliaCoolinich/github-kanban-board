@@ -2,12 +2,15 @@ import { Button as SemanticButton } from "semantic-ui-react";
 
 type IButtonProps = {
     content: string;
+    isDisabled: boolean;
     onClick: () => void;
 }
 
 const Button = (props: IButtonProps) => {
+    const { content, isDisabled, onClick } = props;
+    
     return(
-        <SemanticButton content={props.content} size='big' onClick={props.onClick} />
+        <SemanticButton content={content} size='big' onClick={onClick} disabled={isDisabled} />
     )
 };
 

@@ -9,7 +9,6 @@ export interface getIssues {
     }
 }
 
-
 export interface getIssuesSuccess {
     type: typeof actionTypes.ISSUES_GET_SUCCESS,
     payload: {
@@ -53,6 +52,15 @@ export interface changeIssuesOrder {
     }
 }
 
-type IKanbanBoardPageActionTypes = getIssues | getIssuesSuccess | getIssuesFail | setUrl | changeIssueStatus | changeIssuesOrder;
+///////////////////////////////////////////////////////
+
+export interface setIsLoading {
+    type: actionTypes.LOADING_SET,
+    payload: {
+        isLoading: boolean,
+    }
+}
+
+type IKanbanBoardPageActionTypes = getIssues | getIssuesSuccess | getIssuesFail | setUrl | changeIssueStatus | changeIssuesOrder | setIsLoading;
 
 export default IKanbanBoardPageActionTypes;

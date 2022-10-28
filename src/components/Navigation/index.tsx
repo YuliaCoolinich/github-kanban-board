@@ -16,13 +16,13 @@ const BUTTON_CONTENT = 'Load issues';
 
 interface INavigation {
   url: string,
+  isLoading: boolean,
   setUrl: (url: string) => void,
   loadIssues: (url: string) => any,
 }
 
 const Navigation = (props: INavigation) => {
-  //const [url, setUrl] = useState<string>(MOCKED_URL);
-  const { url, setUrl, loadIssues } = props;
+  const { url, isLoading, setUrl, loadIssues } = props;
 
   const [sections, setSections] = useState<ISection[]>([]);
   const [starGazersCount, setStarGazersCount] = useState(0);
@@ -40,7 +40,6 @@ const Navigation = (props: INavigation) => {
       setStarGazersCount(stars);
 
       const issues = await loadIssues(url);
-      //return cards;
 
     } catch (e: unknown) {
         const err = e as Error;
@@ -53,10 +52,10 @@ const Navigation = (props: INavigation) => {
       <Form error  >
         <Form.Group inline style={styles.formContainer}>
           <Form.Field width={12}>
-            <Input placeholder={INPUT_PLACEHOLDER} value={url} setValue={setUrl} /> 
+            <Input placeholder={INPUT_PLACEHOLDER} value={url} setValue={setUrl} isDisabled={isLoading} /> 
           </Form.Field>
           <Form.Field width={4}>
-            <Button content={BUTTON_CONTENT} onClick={onSubmit} />
+            <Button content={BUTTON_CONTENT} onClick={onSubmit} isDisabled={isLoading} />
           </Form.Field>
         </Form.Group>
         <Message error header={error?.name} content={error?.message} />
