@@ -11,18 +11,19 @@ import * as navigationServices from './services';
 
 import styles from './styles';
 
-const INPUT_PLACEHOLDER = 'Enter repo URL';
+const INPUT_PLACEHOLDER = 'Enter repository URL';
 const BUTTON_CONTENT = 'Load issues';
+const INPUT_NAME = 'URL_INPUT';
 
 interface INavigation {
   url: string,
+  isLoading: boolean,
   setUrl: (url: string) => void,
   loadIssues: (url: string) => any,
 }
 
 const Navigation = (props: INavigation) => {
-  //const [url, setUrl] = useState<string>(MOCKED_URL);
-  const { url, setUrl, loadIssues } = props;
+  const { url, isLoading, setUrl, loadIssues } = props;
 
   const [sections, setSections] = useState<ISection[]>([]);
   const [starGazersCount, setStarGazersCount] = useState(0);
@@ -39,8 +40,7 @@ const Navigation = (props: INavigation) => {
       const stars: number = await navigationServices.getStarGazersCount(url);
       setStarGazersCount(stars);
 
-      const issues = await loadIssues(url);
-      //return cards;
+      await loadIssues(url);
 
     } catch (e: unknown) {
         const err = e as Error;
@@ -50,13 +50,13 @@ const Navigation = (props: INavigation) => {
 
   return(
     <Container style={styles.container}>
-      <Form error  >
+      <Form error>
         <Form.Group inline style={styles.formContainer}>
-          <Form.Field width={12}>
-            <Input placeholder={INPUT_PLACEHOLDER} value={url} setValue={setUrl} /> 
+          <Form.Field width={14} tab-index={0}>
+            <Input placeholder={INPUT_PLACEHOLDER} value={url} setValue={setUrl} isDisabled={isLoading} name={INPUT_NAME} tabIndex={0} /> 
           </Form.Field>
-          <Form.Field width={4}>
-            <Button content={BUTTON_CONTENT} onClick={onSubmit} />
+          <Form.Field width={2}>
+            <Button content={BUTTON_CONTENT} onClick={onSubmit} isDisabled={isLoading} tabIndex={1} />
           </Form.Field>
         </Form.Group>
         <Message error header={error?.name} content={error?.message} />

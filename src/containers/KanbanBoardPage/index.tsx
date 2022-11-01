@@ -29,19 +29,22 @@ const KanbanBoardPage = () => {
         storageService.update(state.url, state.columns);
     }
 
-    // TO-DO add error message block
     return (
         <>
             <Navigation 
                 url={state.url}
+                isLoading={state.isLoading}
                 setUrl={handleInputUrl}
                 loadIssues={handleLoadIssues}
             />
             <KanbanBoard 
-                columns={state.columns} 
+                columns={state.columns}
+                isLoading={state.isLoading}
+                error={state.errorMessage}
                 changeIssueStatus={changeIssueStatus}
                 changeIssuesOrder={changeIssuesOrder}
             />
+            
         </>
     )
 };

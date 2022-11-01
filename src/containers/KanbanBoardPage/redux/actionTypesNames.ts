@@ -7,6 +7,8 @@ enum actionTypes {
     ORDER_ISSUES_CHANGE = "ISSUES/ORDER_CHANGE",
 
     URL_SET = "URL/SET",
+
+    LOADING_SET = "LOADING/SET",
 }
 
 export default actionTypes;

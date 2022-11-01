@@ -15,8 +15,12 @@ type ICardProps = {
     changeIssuesOrder: (status: string, previousIndex: number, newIndex: number) => void;
 }
 
+const USER_ACCOUNT_LINK_TITLE = 'Link to user github account';
+const ISSUE_LINK_TITLE = 'Link to issue github page';
+
 const Card = (props: ICardProps) => {
     const { issue, order, changeIssuesOrder } = props;
+
     const draggableItem: IDraggableItem = {
         id: issue.id, 
         priority: order, 
@@ -27,20 +31,21 @@ const Card = (props: ICardProps) => {
         type: ITEM_TYPES.CARD,
         item: draggableItem,
         collect: monitor => ({
-            isDragging: !!monitor.isDragging()
+            isDragging: monitor.isDragging()
         }),
     });
 
-    const[{ isOver }, dropRef] = useDrop({
+    const[, dropRef] = useDrop({
         accept: ITEM_TYPES.CARD,
         collect: monitor => ({
-            isOver: !!monitor.isOver()
+            isOver: monitor.isOver()
         }),
-        drop: (item: any, monitor) => {
+        
+        drop: (item: any) => {
             const droppedItem = item as IDraggableItem;
-            if (issue.status === item.status) {
+             if (issue.status === item.status) {
                 changeIssuesOrder(String(issue.status), droppedItem.priority, Number(issue!.priority));
-            }
+             }
         },
     });
 
@@ -53,7 +58,7 @@ const Card = (props: ICardProps) => {
             <div ref={dropRef} style={isDragging ? styles.underDraggableContainer : styles.draggableContainer}> 
                     <CardWrapper.Content>
                         <CardHeader style={styles.title}>
-                            <a href={issue.html_url}>
+                            <a href={issue.html_url} title={ISSUE_LINK_TITLE} >
                                 {issue.title}
                             </a>
                         </CardHeader>
@@ -61,7 +66,9 @@ const Card = (props: ICardProps) => {
                         <CardWrapper.Description style={styles.discription}>
                             <Grid columns={3} style={styles.dataColumnsWrapper}>
                                 <Grid.Column style={styles.dataColumns}>
-                                    <a href={issue.user.html_url}>{issue.user.login}</a>
+                                    <a href={issue.user.html_url} title={USER_ACCOUNT_LINK_TITLE}>
+                                        {issue.user.login}
+                                    </a>
                                 </Grid.Column>
                                 <Grid.Column style={styles.dataColumns}>|</Grid.Column>
                                 <Grid.Column style={styles.dataColumns}>{`Comments: ${issue.comments}`}</Grid.Column>

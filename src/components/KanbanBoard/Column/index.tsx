@@ -27,9 +27,9 @@ const Column = ( props: IColumnProps  ) => {
     const[{ isOver }, dropRef] = useDrop({
         accept: ITEM_TYPES.CARD,
         collect: monitor => ({
-            isOver: !!monitor.isOver()
+            isOver: monitor.isOver()
         }),
-        drop: (item, monitor) => {
+        drop: (item) => {
             const droppedItem = item as IDraggableItem;
             if (status !== droppedItem.status) {
                 changeIssueStatus(droppedItem.id, droppedItem.status, status);

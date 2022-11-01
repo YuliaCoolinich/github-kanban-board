@@ -4,6 +4,7 @@ const initalState: IKanbanBoardPageState = {
     columns: [],
     url: '',
     errorMessage: '',
+    isLoading: false,
 }
 
 export default initalState;

@@ -8,6 +8,7 @@ const styles = {
         padding: 5,
         margin: 10,
         overflow: 'hidden',
+        cursor: 'grab'
     },
     draggableContainer: {
         opacity: 1,

@@ -51,3 +51,10 @@ export const changeIssuesOrder = (status: string, previousIndex: number, newInde
         newIndex
     }
 });
+
+export const setIsLoading = (isLoading: boolean) : IKanbanBoardPageActionTypes => ({
+    type: actionTypes.LOADING_SET,
+    payload: {
+        isLoading
+    }
+});

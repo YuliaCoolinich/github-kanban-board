@@ -1,6 +1,8 @@
 const styles = {
-    active: {
-        width: "100%"
+    base: {
+        width: "100%",
+        height: 'auto',
+        fontSize: '15px'
     }
 }
 export default styles;

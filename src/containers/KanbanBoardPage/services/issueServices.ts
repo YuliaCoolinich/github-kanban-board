@@ -6,9 +6,12 @@ import CARD_STATUSES, { STATUS, STATUS_API } from '../../../data/statuses';
 import IStatus from '../../../interfaces/IStatus';
 import IColumn from '../../../interfaces/IColumn';
 
+import ServiceError from '../errors/ServiceError';
+import { ERROR_ISSUE_SERVICE_TYPES as ERROR_TYPES } from '../errors/errorTypes';
+
 export const loadIssues = async (url: string): Promise<IIssue[]> => {
     const path: string = url.replace(DOMAIN, "");
-    
+
     const recivedIssues: IIssue[] = await issuesService.getNewIssues(path);
     const issues: IIssue[] = mapIssues(recivedIssues);
     return issues;
@@ -73,9 +76,15 @@ const filterIssuesByStatus = (issues: IIssue[], status: IStatus): IIssue[] => {
 
 
 export const changeIssueStatus = (columns: IColumn[], issueId: number, previousStatus: string, newStatus: string): IColumn[] => {
-    const columnFrom: IColumn = columns.find(column => column.status.title === previousStatus) as IColumn;
-    const columnTo: IColumn = columns.find(column => column.status.title === newStatus) as IColumn;
-    const issueIndex: number = columnFrom?.cards.findIndex(issue => issue.id === issueId);
+    const columnFrom: IColumn | undefined = columns.find(column => column.status.title === previousStatus);
+    if (!columnFrom) {
+        throw new ServiceError(ERROR_TYPES.COLUMN_NOT_FOUND);
+    }
+    const columnTo: IColumn | undefined = columns.find(column => column.status.title === newStatus);
+    if (!columnTo) {
+        throw new ServiceError(ERROR_TYPES.COLUMN_NOT_FOUND);
+    }
+    const issueIndex: number = columnFrom.cards.findIndex(issue => issue.id === issueId);
 
     const changedIssue: IIssue = columnFrom.cards[issueIndex];
     changedIssue.status = newStatus;
@@ -91,8 +100,7 @@ export const changeIssueStatus = (columns: IColumn[], issueId: number, previousS
 export const changeIssueOrder = (columns: IColumn[], status: string, previousIndex: number, newIndex: number): IColumn[] => {
     const issuesChangedOrder: IIssue[]  = columns.find(column => column.status.title === status)?.cards as IIssue[];
     if (!issuesChangedOrder.length) {
-        console.log('there is error'); // TO-DO throw error here
-        return columns;
+        throw new ServiceError(ERROR_TYPES.INCORRECT_ISSUE_COUNT);
     }
     const movedCard: IIssue = issuesChangedOrder[previousIndex];
 
