@@ -4,11 +4,12 @@ import styles from './styles';
 type IButtonProps = {
     content: string;
     isDisabled: boolean;
+    tabIndex?: number,
     onClick: () => void;
 }
 
 const Button = (props: IButtonProps) => {
-    const { content, isDisabled, onClick } = props;
+    const { content, isDisabled, tabIndex, onClick } = props;
 
     return(
         <SemanticButton 
@@ -16,7 +17,8 @@ const Button = (props: IButtonProps) => {
             size='large' 
             onClick={onClick} 
             disabled={isDisabled} 
-            style={styles.base} 
+            style={styles.base}
+            tab-index={tabIndex ? tabIndex : null}
         />
     )
 };
