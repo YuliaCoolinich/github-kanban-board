@@ -17,6 +17,7 @@ type ICardProps = {
 
 const Card = (props: ICardProps) => {
     const { issue, order, changeIssuesOrder } = props;
+
     const draggableItem: IDraggableItem = {
         id: issue.id, 
         priority: order, 
@@ -27,20 +28,21 @@ const Card = (props: ICardProps) => {
         type: ITEM_TYPES.CARD,
         item: draggableItem,
         collect: monitor => ({
-            isDragging: !!monitor.isDragging()
+            isDragging: monitor.isDragging()
         }),
     });
 
-    const[{ isOver }, dropRef] = useDrop({
+    const[, dropRef] = useDrop({
         accept: ITEM_TYPES.CARD,
         collect: monitor => ({
-            isOver: !!monitor.isOver()
+            isOver: monitor.isOver()
         }),
-        drop: (item: any, monitor) => {
+        
+        drop: (item: any) => {
             const droppedItem = item as IDraggableItem;
-            if (issue.status === item.status) {
+             if (issue.status === item.status) {
                 changeIssuesOrder(String(issue.status), droppedItem.priority, Number(issue!.priority));
-            }
+             }
         },
     });
 
