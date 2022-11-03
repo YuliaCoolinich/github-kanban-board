@@ -29,7 +29,7 @@ export const parseUrl = (url: string): ISection[] | undefined => {
 };
 
 const isCorrectUrl = (url: string): boolean => {
-    const regex = new RegExp(/([\/])\1|^[\/]/);
+    const regex = new RegExp(/([/])\1|^[/]/);
     const path: string = url.replace(DOMAIN, "");
     if (path.length === url.length) {
         throw new ValidationError(ERROR_VALIDATION_TYPES.INCORRECT_DOMAIN); 
