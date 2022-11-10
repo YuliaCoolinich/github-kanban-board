@@ -5,6 +5,9 @@ import { ERROR_VALIDATION_TYPES } from '../Navigation/errors/errorTypes';
 import * as repositoryService from '../../api/services/repositoryService';
 
 export const getStarGazersCount = async (url: string) => {
+    if (!url.length) {
+        throw new ValidationError(ERROR_VALIDATION_TYPES.EMPTY_URL); 
+    }
     const path: string = url.replace(DOMAIN, "");
     const starGazersCount: number = await repositoryService.getStarGazersCount(path);
     return starGazersCount;
@@ -21,7 +24,7 @@ export const parseUrl = (url: string): ISection[] | undefined => {
                 active: index === path.length - 1,
                 href: getSegmentUrl(path, index),
             };
-            accumulator = [...accumulator, section];
+            if (section.key) accumulator = [...accumulator, section];
             return accumulator;
         }, [] as ISection[]);
         return sections;
@@ -29,7 +32,10 @@ export const parseUrl = (url: string): ISection[] | undefined => {
 };
 
 const isCorrectUrl = (url: string): boolean => {
-    const regex = new RegExp(/([/])\1|^[/]/);
+    if (!url.length) {
+        throw new ValidationError(ERROR_VALIDATION_TYPES.EMPTY_URL); 
+    }
+    const regex = new RegExp(/([/])\1|^[/]|[/]$/);
     const path: string = url.replace(DOMAIN, "");
     if (path.length === url.length) {
         throw new ValidationError(ERROR_VALIDATION_TYPES.INCORRECT_DOMAIN); 
@@ -42,6 +48,6 @@ const isCorrectUrl = (url: string): boolean => {
     return !isIncorrectUrl;
 }
 
-const uppercasedFirstLetter = (word: string) => `${word.charAt(0).toUpperCase()}${word.substring(1)}`
+export const uppercasedFirstLetter = (word: string) => `${word.charAt(0).toUpperCase()}${word.substring(1)}`
 
 const getSegmentUrl = (path: string[], sectionIndex: number) => `${DOMAIN}${path.filter((value, i) => i <= sectionIndex ? value : '').join('/')}`
