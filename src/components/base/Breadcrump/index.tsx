@@ -4,11 +4,18 @@ import ISection from '../../../interfaces/ISection';
 import styles from './styles';
 
 type IBreadcrumbProps = {
-    sections: ISection[]
+    sections: ISection[];
+    dataTestId?: string;
 }
 const Breadcrumb = (props: IBreadcrumbProps) => {
     return (
-        <SemanticBreadcrump icon='right angle' size='small' sections={props.sections} style={styles.boxed} />
+        <SemanticBreadcrump 
+            icon='right angle' 
+            size='small' 
+            sections={props.sections} 
+            style={styles.boxed} 
+            data-testid={props.dataTestId} 
+        />
     )
 }
 

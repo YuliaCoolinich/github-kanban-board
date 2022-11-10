@@ -2,12 +2,13 @@ import { Rating as RatingSemantic } from 'semantic-ui-react';
 
 type IRating = {
     count: number;
+    dataTestId?: string;
 }
 const Rating = (props: IRating) => {
-    const { count } = props;
+    const { count, dataTestId } = props;
 
     return (
-        <>
+        <div data-testid={dataTestId}>
             {
                 count
                 ?
@@ -17,7 +18,7 @@ const Rating = (props: IRating) => {
                     </>
                 : null
             }
-        </>
+        </div>
         
         
     )

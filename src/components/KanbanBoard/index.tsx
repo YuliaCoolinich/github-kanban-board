@@ -3,9 +3,11 @@ import { Container, Loader, Segment, Message } from 'semantic-ui-react';
 import Column from './Column';
 import IColumn from '../../interfaces/IColumn';
 
+import * as TestIds from '../../data/testingIds';
+
 import styles from './styles';
 
-interface IKanbanBoard {
+export interface IKanbanBoard {
     columns: IColumn[];
     isLoading: boolean;
     error: string;
@@ -19,7 +21,7 @@ const KanbanBoard = (props: IKanbanBoard) => {
     const { columns, isLoading, error, changeIssueStatus, changeIssuesOrder } = props;
 
     return(
-            <Container style={styles.containerWrapper}>
+            <Container style={styles.containerWrapper} data-testid={TestIds.KANBAN_BOARD_CONTAINER} >
                 {  error.length > 0 
                     ? <Message error content={error} />
                     : null
