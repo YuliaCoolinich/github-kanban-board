@@ -8,10 +8,11 @@ type IInputProps = {
     isDisabled: boolean,
     name?: string,
     tabIndex?: number,
+    dataTestId?: string;
     setValue: (value: string) => void;
 }
 const Input = (props: IInputProps) => {
-    const {placeholder, value, isDisabled, setValue, name, tabIndex } = props;
+    const {placeholder, value, isDisabled, setValue, name, tabIndex, dataTestId } = props;
 
     const handleChangeInput = (e: any) => {
         const newValue = e.target.value;
@@ -34,6 +35,7 @@ const Input = (props: IInputProps) => {
                 value={value}
                 disabled={isDisabled}
                 tab-index={tabIndex ? tabIndex : null}
+                data-testid={dataTestId}
                 onChange={handleChangeInput}
             />
         </>

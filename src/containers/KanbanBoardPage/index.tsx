@@ -3,14 +3,13 @@ import Navigation from '../../components/Navigation';
 
 import useActions from './hooks/useActions';
 import useTypedSelector from './hooks/useTypedSelector';
+import initalState from './redux/initialState';
 
 import * as storageService from './services/storageSevices';
 
-// https://github.com/facebook/react
-
 const KanbanBoardPage = () => {
     const actions = useActions();
-    const state = useTypedSelector(state => state.kanbanBoardPageReducer);
+    const state = useTypedSelector(state => state.kanbanBoardPageReducer ?? initalState);
 
     const handleInputUrl = (url: string) => {
         actions.setUrl(url);

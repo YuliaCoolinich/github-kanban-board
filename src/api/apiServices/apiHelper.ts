@@ -8,7 +8,7 @@ export async function callApi(args: IRequestArgument): Promise<Response> {
 
     if( !result.ok) {
         const resultJSON = await result.json();
-        throw new ServiceError(resultJSON.error.message);
+        throw new ServiceError(resultJSON.error?.message);
     }
 
     return result;
