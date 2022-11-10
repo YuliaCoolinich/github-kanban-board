@@ -85,6 +85,9 @@ export const changeIssueStatus = (columns: IColumn[], issueId: number, previousS
         throw new ServiceError(ERROR_TYPES.COLUMN_NOT_FOUND);
     }
     const issueIndex: number = columnFrom.cards.findIndex(issue => issue.id === issueId);
+    if (issueIndex === -1) {
+        throw new ServiceError(ERROR_TYPES.ISSUE_NOT_FOUND);
+    }
 
     const changedIssue: IIssue = columnFrom.cards[issueIndex];
     changedIssue.status = newStatus;

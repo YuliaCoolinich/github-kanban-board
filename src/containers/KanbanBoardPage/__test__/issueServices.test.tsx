@@ -2,6 +2,9 @@ import IColumn from "../../../interfaces/IColumn";
 import IIssue from "../../../interfaces/IIssue";
 import IStatus from "../../../interfaces/IStatus";
 
+import ServiceError from '../errors/ServiceError';
+import { ERROR_ISSUE_SERVICE_TYPES as ERROR_TYPES } from '../errors/errorTypes';
+
 import * as services from "../services/issueServices";
 
 import { STATUS } from '../../../data/statuses';
@@ -150,6 +153,64 @@ describe("Issue services unit tests", () => {
 
         expect(changeStatus).toBeCalled();
         expect(changeStatus).toReturnWith(columnsAfter);
+    });
+    it("should throw ServerError when changeIssueStatus function can not find from which column should change the status of the card", () => {
+        const columnsBefore: IColumn[] = [{
+            status: statusTO_DO,
+            cards: [issueOpenWithoutAssignee]
+        }, {
+            status: statusIN_PROGRESS,
+            cards: [issueOpenWithAssignee]
+        }, {
+            status: statusDONE,
+            cards: [issueClosedWithoutAssignee]
+        }];
+
+        try {
+            services.changeIssueStatus(columnsBefore, issueOpenWithAssignee.id, 'SomeRandomStatus', STATUS.DONE);
+        } catch(error) {
+            expect(error).toBeInstanceOf(ServiceError);
+            expect(error).toHaveProperty('message', ERROR_TYPES.COLUMN_NOT_FOUND);
+        }
+    });
+    it("should throw ServerError when changeIssueStatus function can not find to which column should change the status of the card", () => {
+        const columnsBefore: IColumn[] = [{
+            status: statusTO_DO,
+            cards: [issueOpenWithoutAssignee]
+        }, {
+            status: statusIN_PROGRESS,
+            cards: [issueOpenWithAssignee]
+        }, {
+            status: statusDONE,
+            cards: [issueClosedWithoutAssignee]
+        }];
+
+        try {
+            services.changeIssueStatus(columnsBefore, issueOpenWithAssignee.id, STATUS.IN_PROGRESS, 'SomeRandomStatus');
+        } catch(error) {
+            expect(error).toBeInstanceOf(ServiceError);
+            expect(error).toHaveProperty('message', ERROR_TYPES.COLUMN_NOT_FOUND);
+        }
+    });
+    it("should throw ServerError when changeIssueStatus function can not find issue id in columns", () => {
+        const someRandomId = 123456789;
+        const columnsBefore: IColumn[] = [{
+            status: statusTO_DO,
+            cards: [issueOpenWithoutAssignee]
+        }, {
+            status: statusIN_PROGRESS,
+            cards: [issueOpenWithAssignee]
+        }, {
+            status: statusDONE,
+            cards: [issueClosedWithoutAssignee]
+        }];
+
+        try {
+            services.changeIssueStatus(columnsBefore, someRandomId, STATUS.IN_PROGRESS, STATUS.DONE);
+        } catch(error) {
+            expect(error).toBeInstanceOf(ServiceError);
+            expect(error).toHaveProperty('message', ERROR_TYPES.ISSUE_NOT_FOUND);
+        }
     });
     it("should change the issue order from 0 to 1 and vice versa", () => {
         const changeOrder = jest.spyOn(services, "changeIssueOrder");
