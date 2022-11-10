@@ -7,8 +7,6 @@ import initalState from './redux/initialState';
 
 import * as storageService from './services/storageSevices';
 
-// https://github.com/facebook/react
-
 const KanbanBoardPage = () => {
     const actions = useActions();
     const state = useTypedSelector(state => state.kanbanBoardPageReducer ?? initalState);
