@@ -32,7 +32,8 @@
   "scripts": {
     "start": "semantic-ui-css-patch && react-scripts start",
     "build": "semantic-ui-css-patch && react-scripts build",
-    "test": "react-scripts test --detectOpenHandles --forceExit --coverage",
+    "test": "react-scripts test",
+    "testInfo": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject",
     "postinstall": "semantic-ui-css-patch"
   },
