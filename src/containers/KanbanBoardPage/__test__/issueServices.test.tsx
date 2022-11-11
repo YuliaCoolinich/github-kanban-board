@@ -9,8 +9,8 @@ import * as services from "../services/issueServices";
 
 import { STATUS } from '../../../data/statuses';
 
-const moockedUrl = 'https://github.com/facebook/react';
-const moockedIncorrectUrl = 'https://github.com/notfacebook/notreact';
+const mockedUrl = 'https://github.com/facebook/react';
+const mockedIncorrectUrl = 'https://github.com/notfacebook/notreact';
 
 const issueOpenWithAssignee: IIssue = {
     id: 123,
@@ -20,13 +20,13 @@ const issueOpenWithAssignee: IIssue = {
     state: 'open',
     user: {
             id: 123456,
-            login: "IlonMask",
+            login: "ElonMusk",
             avatar_url: "https://github.com/IlonMask",
             html_url: "https://github.com/IlonMask"
     },
     assignee: {
             id: 123456,
-            login: "IlonMask",
+            login: "ElonMusk",
             avatar_url: "https://github.com/IlonMask",
             html_url: "https://github.com/IlonMask"
     },
@@ -41,7 +41,7 @@ const issueOpenWithoutAssignee: IIssue = {
     state: 'open',
     user: {
             id: 123456,
-            login: "IlonMask",
+            login: "ElonMusk",
             avatar_url: "https://github.com/IlonMask",
             html_url: "https://github.com/IlonMask"
     },
@@ -57,7 +57,7 @@ const issueClosedWithoutAssignee: IIssue = {
     state: 'close',
     user: {
             id: 123456,
-            login: "IlonMask",
+            login: "ElonMusk",
             avatar_url: "https://github.com/IlonMask",
             html_url: "https://github.com/IlonMask"
     },
@@ -103,7 +103,7 @@ describe("Issue services unit tests", () => {
         }),
         ) as jest.Mock;
 
-        await expect(services.loadIssues(moockedIncorrectUrl)).rejects.toThrowError('Incorrect request');
+        await expect(services.loadIssues(mockedIncorrectUrl)).rejects.toThrowError('Incorrect request');
         expect(global.fetch).toHaveBeenCalledTimes(1);
     });
     it("should load all issues when request ones with correct url", async () => {
@@ -114,7 +114,7 @@ describe("Issue services unit tests", () => {
         }),
         ) as jest.Mock;
 
-        await expect(services.loadIssues(moockedUrl)).resolves.toStrictEqual(mockedReceivedIssues);
+        await expect(services.loadIssues(mockedUrl)).resolves.toStrictEqual(mockedReceivedIssues);
         expect(global.fetch).toHaveBeenCalledTimes(1);
     });
     it("should filter by columns", () => {

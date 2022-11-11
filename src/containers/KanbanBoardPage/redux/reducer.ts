@@ -2,10 +2,10 @@ import IKanbanBoardPageStore from "./interfaces/IKanbanBoardPageState";
 import IKanbanBoardPageActionTypes from './interfaces/actionTypes';
 import actionTypes from './actionTypesNames';
 
-import initalState from "./initialState";
+import initialState from "./initialState";
 import * as issuesService from '../services/issueServices';
 
-const kanbanBoardPageReducer = (state: IKanbanBoardPageStore = initalState, action: IKanbanBoardPageActionTypes): IKanbanBoardPageStore => {
+const kanbanBoardPageReducer = (state: IKanbanBoardPageStore = initialState, action: IKanbanBoardPageActionTypes): IKanbanBoardPageStore => {
     console.log(action.type);
     switch (action.type) {
         case actionTypes.ISSUES_GET_SUCCESS:

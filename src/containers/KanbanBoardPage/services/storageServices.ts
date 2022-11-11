@@ -1,5 +1,5 @@
 import IColumn from '../../../interfaces/IColumn';
-import storage from '../../../data/casheStorage';
+import storage from '../../../data/cacheStorage';
 
 import ServiceError from '../errors/ServiceError';
 import { ERROR_STORAGE_SERVICE_TYPES as ERROR_TYPES } from '../errors/errorTypes';

@@ -1,4 +1,4 @@
-import { Breadcrumb as SemanticBreadcrump } from "semantic-ui-react";
+import { Breadcrumb as SemanticBreadcrumb } from "semantic-ui-react";
 import ISection from '../../../interfaces/ISection';
 
 import styles from './styles';
@@ -9,7 +9,7 @@ type IBreadcrumbProps = {
 }
 const Breadcrumb = (props: IBreadcrumbProps) => {
     return (
-        <SemanticBreadcrump 
+        <SemanticBreadcrumb 
             icon='right angle' 
             size='small' 
             sections={props.sections} 

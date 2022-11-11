@@ -26,7 +26,7 @@ const styles = {
         textAlign: "left",
         margin: 7,
     },
-    discription: {
+    description: {
         width: '100%',
         display: "flex",
         flexDirection: "row",

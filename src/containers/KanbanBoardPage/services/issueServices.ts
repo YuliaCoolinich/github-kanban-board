@@ -12,13 +12,13 @@ import { ERROR_ISSUE_SERVICE_TYPES as ERROR_TYPES } from '../errors/errorTypes';
 export const loadIssues = async (url: string): Promise<IIssue[]> => {
     const path: string = url.replace(DOMAIN, "");
 
-    const recivedIssues: IIssue[] = await issuesService.getNewIssues(path);
-    const issues: IIssue[] = mapIssues(recivedIssues);
+    const receivedIssues: IIssue[] = await issuesService.getNewIssues(path);
+    const issues: IIssue[] = mapIssues(receivedIssues);
     return issues;
 };
 
-const mapIssues = (recivedIssues: IIssue[]): IIssue[] => (
-    recivedIssues.map(issue => ({
+const mapIssues = (receivedIssues: IIssue[]): IIssue[] => (
+    receivedIssues.map(issue => ({
         id: issue.id,
         number: issue.number,
         title: issue.title,

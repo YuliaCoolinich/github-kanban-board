@@ -20,7 +20,7 @@ export const parseUrl = (url: string): ISection[] | undefined => {
         const sections: ISection[] = path.reduce((accumulator, segment, index ) => {
             const section: ISection = {
                 key: segment,
-                content: uppercasedFirstLetter(segment),
+                content: uppercaseFirstLetter(segment),
                 active: index === path.length - 1,
                 href: getSegmentUrl(path, index),
             };
@@ -48,6 +48,6 @@ const isCorrectUrl = (url: string): boolean => {
     return !isIncorrectUrl;
 }
 
-export const uppercasedFirstLetter = (word: string) => `${word.charAt(0).toUpperCase()}${word.substring(1)}`
+export const uppercaseFirstLetter = (word: string) => `${word.charAt(0).toUpperCase()}${word.substring(1)}`
 
 const getSegmentUrl = (path: string[], sectionIndex: number) => `${DOMAIN}${path.filter((value, i) => i <= sectionIndex ? value : '').join('/')}`

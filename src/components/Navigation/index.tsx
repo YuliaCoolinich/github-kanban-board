@@ -3,7 +3,7 @@ import { Container, Form, Message } from 'semantic-ui-react';
 
 import Input from "../base/Input";
 import Button from "../base/Button";
-import Breadcrumb from '../base/Breadcrump';
+import Breadcrumb from '../base/Breadcrumb';
 import Rating from '../base/Rating';
 
 import ISection from '../../interfaces/ISection';
@@ -76,7 +76,7 @@ const Navigation = (props: INavigation) => {
         <Message error header={error?.name} content={error?.message} data-testid={TestIds.ERROR_SECTION} />
       </Form>
       <Container style={styles.breadCrumpContainer}>
-        <Breadcrumb sections={sections} dataTestId={TestIds.BREADCRUMP_SECTIONS} />
+        <Breadcrumb sections={sections} dataTestId={TestIds.BREADCRUMB_SECTIONS} />
         <Rating count={starGazersCount} dataTestId={TestIds.RATING_SECTION} />
       </Container>
     </Container>

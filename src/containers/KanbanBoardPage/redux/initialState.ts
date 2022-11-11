@@ -1,10 +1,10 @@
 import IKanbanBoardPageState from "./interfaces/IKanbanBoardPageState";
 
-const initalState: IKanbanBoardPageState = {
+const initialState: IKanbanBoardPageState = {
     columns: [],
     url: '',
     errorMessage: '',
     isLoading: false,
 }
 
-export default initalState;
+export default initialState;

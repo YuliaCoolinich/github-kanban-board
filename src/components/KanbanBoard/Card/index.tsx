@@ -63,7 +63,7 @@ const Card = (props: ICardProps) => {
                             </a>
                         </CardHeader>
                         <CardMeta style={styles.date}>{dateWrapper()}</CardMeta>
-                        <CardWrapper.Description style={styles.discription}>
+                        <CardWrapper.Description style={styles.description}>
                             <Grid columns={3} style={styles.dataColumnsWrapper}>
                                 <Grid.Column style={styles.dataColumns}>
                                     <a href={issue.user.html_url} title={USER_ACCOUNT_LINK_TITLE}>

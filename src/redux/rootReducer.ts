@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import kanbanBoardPageReducer from "../containers/KanbanBoardPage/redux/reducer";
 
-const rootReduser = combineReducers({
+const rootReducer = combineReducers({
     kanbanBoardPageReducer,
 });
-export default rootReduser;
-export type RootState = ReturnType<typeof rootReduser>;
+export default rootReducer;
+export type RootState = ReturnType<typeof rootReducer>;

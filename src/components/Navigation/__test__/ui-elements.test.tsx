@@ -1,12 +1,12 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as TestingIds from '../../../data/testingIds';
-import { INPUT_PLACEHOLDER, BUTTON_CONTENT, INPUT_NAME, BUTTON_NAME } from '../data';
+import { INPUT_PLACEHOLDER, BUTTON_CONTENT } from '../data';
 
 import Navigation, { INavigation } from '..';
 import { act } from 'react-dom/test-utils';
 
-import { uppercasedFirstLetter } from '../services';
+import { uppercaseFirstLetter } from '../services';
 
 const mockedComp: INavigation = {
   url: '',
@@ -71,8 +71,8 @@ describe("HTML UI components", () => {
     });
   });
   
-  describe("Breadcrump component", () => {
-    it("should render rating component after inputing an url", () => {
+  describe("Breadcrumb component", () => {
+    it("should render rating component after inputting an url", () => {
       render(<Navigation url={CORRECT_URL} isLoading={mockedComp.isLoading} setUrl={mockedComp.setUrl} loadIssues={mockedComp.loadIssues} />);
 
       act(() => {
@@ -82,23 +82,23 @@ describe("HTML UI components", () => {
       expect(screen.getByTestId(TestingIds.RATING_SECTION)).toBeInTheDocument();
       expect(screen.getByTestId(TestingIds.RATING_SECTION)).not.toBeNull();
     });
-    it('should render a breadcrump element with correct content in sections', () => {
+    it('should render a breadcrumb element with correct content in sections', () => {
       render(<Navigation url={CORRECT_URL} isLoading={mockedComp.isLoading} setUrl={mockedComp.setUrl} loadIssues={mockedComp.loadIssues} />);
       
       act(() => {
         userEvent.click(screen.getByTestId(TestingIds.BUTTON_LOAD));
       });
 
-      const normalizedFirstSections = uppercasedFirstLetter(FIRST_SECTION);
+      const normalizedFirstSections = uppercaseFirstLetter(FIRST_SECTION);
       expect(mockedComp.loadIssues).toBeCalledTimes(1);
-      expect(screen.getByTestId(TestingIds.BREADCRUMP_SECTIONS).children[0].closest('a')).toBeInTheDocument();
-      expect(screen.getByTestId(TestingIds.BREADCRUMP_SECTIONS).children[0].closest('a')?.text).toEqual(normalizedFirstSections);
+      expect(screen.getByTestId(TestingIds.BREADCRUMB_SECTIONS).children[0].closest('a')).toBeInTheDocument();
+      expect(screen.getByTestId(TestingIds.BREADCRUMB_SECTIONS).children[0].closest('a')?.text).toEqual(normalizedFirstSections);
 
-      const normalizedSecondSections = uppercasedFirstLetter(SECOND_SECTION);
-      expect(screen.getByTestId(TestingIds.BREADCRUMP_SECTIONS).children[2].closest('a')).toBeInTheDocument();
-      expect(screen.getByTestId(TestingIds.BREADCRUMP_SECTIONS).children[2].closest('a')?.text).toEqual(normalizedSecondSections);
+      const normalizedSecondSections = uppercaseFirstLetter(SECOND_SECTION);
+      expect(screen.getByTestId(TestingIds.BREADCRUMB_SECTIONS).children[2].closest('a')).toBeInTheDocument();
+      expect(screen.getByTestId(TestingIds.BREADCRUMB_SECTIONS).children[2].closest('a')?.text).toEqual(normalizedSecondSections);
     }); 
-    it('should render a breadcrump with valid links in sections', () => {
+    it('should render a breadcrumb with valid links in sections', () => {
       render(<Navigation url={CORRECT_URL} isLoading={mockedComp.isLoading} setUrl={mockedComp.setUrl} loadIssues={mockedComp.loadIssues} />);
       
       act(() => {
@@ -106,8 +106,8 @@ describe("HTML UI components", () => {
       });
 
       expect(mockedComp.loadIssues).toBeCalledTimes(1);
-      expect(screen.getByTestId(TestingIds.BREADCRUMP_SECTIONS).children[0]).toHaveAttribute('href', `${DOMAIN}/${FIRST_SECTION}`);
-      expect(screen.getByTestId(TestingIds.BREADCRUMP_SECTIONS).children[2]).toHaveAttribute('href', `${DOMAIN}/${FIRST_SECTION}/${SECOND_SECTION}`);
+      expect(screen.getByTestId(TestingIds.BREADCRUMB_SECTIONS).children[0]).toHaveAttribute('href', `${DOMAIN}/${FIRST_SECTION}`);
+      expect(screen.getByTestId(TestingIds.BREADCRUMB_SECTIONS).children[2]).toHaveAttribute('href', `${DOMAIN}/${FIRST_SECTION}/${SECOND_SECTION}`);
     });
   }); 
 });

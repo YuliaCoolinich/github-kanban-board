@@ -1,4 +1,3 @@
-import IIssue from '../../../../interfaces/IIssue';
 import IColumn from '../../../../interfaces/IColumn';
 import actionTypes from '../actionTypesNames';
 

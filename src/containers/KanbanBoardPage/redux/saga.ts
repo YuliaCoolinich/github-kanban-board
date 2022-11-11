@@ -6,7 +6,7 @@ import actionTypes from './actionTypesNames';
 import * as actions from './actions';
 import * as pageServices from '../services/issueServices';
 import * as issuesService from '../services/issueServices';
-import * as storageService from '../services/storageSevices';
+import * as storageService from '../services/storageServices';
 
 import { ERROR_API_SERVICE_TYPES as ERROR_TYPES } from '../errors/errorTypes';
 import ServiceError from '../errors/ServiceError';
