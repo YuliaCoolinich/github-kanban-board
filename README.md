@@ -1,8 +1,7 @@
 # About App
 
-An implemented GitHub repo issues viewer as a kanban board.
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An implemented GitHub repo issues viewer as a kanban board.\
+Demo link - *https://kanban-board-git.herokuapp.com/*
 
 ## How to use
 1. User can enter repo URL in the input on top of the page and press "Load". For example: *https://github.com/facebook/react* or *https://github.com/facebook/lexical*
@@ -26,6 +25,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
    - React Testing Library
    - Jest
 - Follow the Git workflow
+- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Mockups
 ![mockup](./public/design.png)
