@@ -1,7 +1,7 @@
 # About App
 
 An implemented GitHub repo issues viewer as a kanban board.\
-Demo link - *https://kanban-board-git.herokuapp.com/*
+Demo link - *https://github-kanban-test-task.web.app*
 
 ## How to use
 1. User can enter repo URL in the input on top of the page and press "Load". For example: *https://github.com/facebook/react* or *https://github.com/facebook/lexical*
